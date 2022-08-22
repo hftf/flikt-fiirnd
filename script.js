@@ -6,14 +6,11 @@ else
 	ins.value = sampleInputs.nch_rch
 
 function run(e) {
-	if (e)
-		e.preventDefault()
-
 	// Set up replacement rules, etc.
 	processInput()
 
 	// Apply replacement rules
-	applyReplacements()
+	return applyReplacements()
 }
 
 function processInput() {
@@ -233,39 +230,40 @@ function applyReplacements() {
 	// Extract conflicts only
 	conflicts = transformEntry(window.transformers.combiners, Object.entries(matches))
 
+	return conflicts
 
-	var dl = document.createElement('dl')
-	for (var [transformedPron, bin] of conflicts) {
-		var dt = document.createElement('dt')
-		dt.innerHTML = `<cite>${transformedPron}</cite>`
-		dl.appendChild(dt)
-		var dd = document.createElement('dd')
-		dl.appendChild(dd)
-		var i=0
-		var dl1 = document.createElement('dl')
-		for (var [originalpron, group] of Object.entries(bin)) {
-			var dt1 = document.createElement('dt')
-			dt1.innerHTML = `<cite>${originalpron}</cite>`
-			dl1.appendChild(dt1)
-			var dd1 = document.createElement('dd')
-			dl1.appendChild(dd1)
-			var dl2 = document.createElement('dl')
+	// var dl = document.createElement('dl')
+	// for (var [transformedPron, bin] of conflicts) {
+	// 	var dt = document.createElement('dt')
+	// 	dt.innerHTML = `<cite>${transformedPron}</cite>`
+	// 	dl.appendChild(dt)
+	// 	var dd = document.createElement('dd')
+	// 	dl.appendChild(dd)
+	// 	var i=0
+	// 	var dl1 = document.createElement('dl')
+	// 	for (var [originalpron, group] of Object.entries(bin)) {
+	// 		var dt1 = document.createElement('dt')
+	// 		dt1.innerHTML = `<cite>${originalpron}</cite>`
+	// 		dl1.appendChild(dt1)
+	// 		var dd1 = document.createElement('dd')
+	// 		dl1.appendChild(dd1)
+	// 		var dl2 = document.createElement('dl')
 
-			for (var match of group) {
-				var {word, originalpron, subscript} = match
-				var dt2 = document.createElement('dt')
-				var dd2 = document.createElement('dd')
-				dt2.innerHTML = formatWord(word, subscript)
-				dd2.innerHTML = `<cite>/${originalpron}/</cite>`
-				dl2.appendChild(dt2)
-				dl2.appendChild(dd2)
-			}
-			dd1.appendChild(dl2)
-		}
-		dd.appendChild(dl1)
-	}
+	// 		for (var match of group) {
+	// 			var {word, originalpron, subscript} = match
+	// 			var dt2 = document.createElement('dt')
+	// 			var dd2 = document.createElement('dd')
+	// 			dt2.innerHTML = formatWord(word, subscript)
+	// 			dd2.innerHTML = `<cite>/${originalpron}/</cite>`
+	// 			dl2.appendChild(dt2)
+	// 			dl2.appendChild(dd2)
+	// 		}
+	// 		dd1.appendChild(dl2)
+	// 	}
+	// 	dd.appendChild(dl1)
+	// }
 
-	out.replaceChildren(dl)
+	// out.replaceChildren(dl)
 
 	for (var transformer of Object.values(transformers).flat()) {
 		var p = document.createElement('p')
@@ -278,15 +276,11 @@ function applyReplacements() {
 }
 
 total = 145049693
-function formatWord(word, subscript) {
+function formatWord({word}) {
 	var freq1 = freq[word] || 0
 	var prop = (freq1 || 1) / total
 	var log = -Math.log10(prop)
-	var exponent = (freq1) ? `<small>10<sup>-${log.toFixed(1)}</small>` : '0'
 	var gray = .2 * log - .8
-
-	if (subscript)
-		subscript = `<sub>${subscript}</sub>`
 
 	// if (window.matchMedia('(prefers-color-scheme: dark)')) {
 		// gray = 1 - gray
@@ -299,11 +293,11 @@ function formatWord(word, subscript) {
 	else if (log < 6.5) weight = 5 // Regular
 	else                weight = 4 // Book
 
-	return `<span style="color:${hsl}; font-weight:${weight}00">${exponent} ${word}${subscript} ${freq1} </span>`
+	return { hsl, weight, log, freq1 }
 }
 
-window.onload = () => {
-	if (ins.value)
-		run()
-}
-document.getElementById('but').onclick = run
+// window.onload = () => {
+// 	if (ins.value)
+// 		run()
+// }
+// document.getElementById('but').onclick = run

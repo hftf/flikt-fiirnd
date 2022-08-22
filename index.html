@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8" />
 	<meta name="color-scheme" content="light dark" />
@@ -8,18 +8,61 @@
 	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-<form action="">
+<form action="" v-scope="{ conflicts: {} }">
 	<p>Enter stuff below. All client-side btw</p>
 	<p><textarea id="ins" cols="69" rows="5"></textarea></p>
 	<p>
-		<button id="but">Find matches</button>
+		<button id="but" @click.prevent="conflicts = run()">Find matches</button>
 		<input type="reset" />
 	</p>
-	<output id="out"></output>
+	<output id="out">
+		<!-- <pre>{{conflicts}}</pre> -->
+		<dl>
+		<template v-for="([transformedPron, bin], index) in conflicts">
+			<dt>{{index}}. <cite>{{ transformedPron }}</cite></dt>
+			<dd>
+				<dl>
+					<template v-for="(group, originalPron) of bin">
+						<dt><cite>{{ originalPron }}</cite></dt>
+						<dd>
+							<dl>
+								<template v-for="match in group">
+									<dt :set="f = formatWord(match)">
+										<span
+											:style="{ 'color': f.hsl, 'font-weight': f.weight + '00' }">
+											<small v-if="f.freq1">
+												10<sup>-{{ f.log.toFixed(1) }}</sup>
+											</small>
+											<small v-else>0</small>
+											{{ f.freq1 }}
+
+											{{ match.word }}
+											<sub v-if="match.subscript">{{ match.subscript }}</sub>
+										</span>
+									</dt>
+									<dd><cite>/{{ match.originalpron }}/</cite></dd>
+								</template>
+							</dl>
+						</dd>
+					</template>
+				</dl>
+			</dd>
+		</template>
+		</dl>
+	</output>
 </form>
-<script type="text/javascript" src="en_US.js"></script>
-<script type="text/javascript" src="freq.js"></script>
-<script type="text/javascript" src="sample-inputs.js"></script>
-<script type="text/javascript" src="script.js"></script>
+
+<div v-scope="{count:0}">
+{{ count }}
+<button @click="count++">inc</button>
+</div>
+
+<!-- <script src="https://unpkg.com/petite-vue" defer init></script> -->
+<script src="petite-vue.js" defer init></script>
+
+<script src="en_US.js" async></script>
+<script src="freq.js" async></script>
+<script src="sample-inputs.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
