@@ -1,0 +1,21 @@
+body { font-size: 1.25em; width: fit-content; margin: auto; }
+textarea, button, input[type] { font-size: inherit; }
+textarea { font-family: Consolas, monospace; max-width: 90vw; }
+output { display: block; padding: 1em; background: #e8e4f9; }
+@media (prefers-color-scheme: dark) {
+/*	body { background: black; color: white; }
+	textarea, button, input[type] { background: inherit; color: inherit; }*/
+	output { background: #282439; }
+}
+dt { font-weight: bolder; }
+dl { display: grid; grid-template-columns: minmax(6em,max-content) auto; margin: 0; column-gap: 0.5em; }
+
+output > dl { row-gap: 0.25em; }
+dt { grid-column-start: 1; }
+dd { grid-column-start: 2; margin-left: 0; }
+cite { font-family: Brill; font-feature-settings: 'ss20'; font-style: initial }
+span { font-family: 'Novel SansCond Pro', sans-serif; font-stretch: condensed;
+	font-variant-numeric: tabular-nums; }
+small { font-size: normal; }
+sup { font-variant-position: super; font-feature-settings: 'sups'; font-size: 100%; vertical-align: unset; }
+sub { font-variant-position: sub;   font-feature-settings: 'sinf'; font-size: 100%; vertical-align: unset; }
