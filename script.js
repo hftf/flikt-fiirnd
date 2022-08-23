@@ -321,7 +321,10 @@ function myformatWord({word}) {
 	else if (log < 6.5) weight = 5 // Regular
 	else                weight = 4 // Book
 
-	return { hsl, weight, log, freq1 }
+	return {
+		style: { 'color': hsl, 'font-weight': `${weight}00` },
+		log, freq1
+	}
 }
 
 // window.onload = () => {

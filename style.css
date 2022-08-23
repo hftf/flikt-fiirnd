@@ -14,11 +14,25 @@ table {
 tr.index2.index3 :is(th, td) { padding-top: 0.75em; }
 tr.index3 :is(th, td) { padding-top: 0.5em; }
 th { text-align: left; font-weight: bolder; }
-th, td { vertical-align: top; background: /*#eee*/; }
+th, td { vertical-align: baseline; background: /*#eee*/; }
+.r { text-align: right; white-space: nowrap; }
 
-cite { font-family: Brill; font-feature-settings: 'ss20'; font-style: initial }
-span { font-family: 'Novel SansCond Pro', sans-serif; font-stretch: condensed;
-	font-variant-numeric: tabular-nums; }
-small { font-size: normal; }
+.t { font-style: italic; }
+.n {
+	font-family: 'Novel SansCond Pro', sans-serif;
+	font-family: 'Ideal Sans', sans-serif;
+	font-family: 'Alto Pro', sans-serif;
+	/*Encode, Fedra, Brill, Graphik, Guardian TextEgyp,
+	More Pro, Minion, Myriad, palatino linotype */
+	/*sanvito pro, sf pro rounded, skia, utopia, warnock */
+	font-stretch: condensed;
+	font-variant-numeric: tabular-nums lining-nums;
+}
+cite {
+	/*vertical-align: 1px;*/
+	font-family: Brill;
+	font-feature-settings: 'ss20';
+	font-style: inherit;
+}
 sup { font-variant-position: super; font-feature-settings: 'sups'; font-size: 100%; vertical-align: unset; }
 sub { font-variant-position: sub;   font-feature-settings: 'sinf'; font-size: 100%; vertical-align: unset; }
