@@ -1,3 +1,31 @@
+const { createApp, reactive, ref, computed, onMounted } = Vue
+createApp({
+setup() {
+	const ins = ref({})
+	const conflicts = computed(() => {
+		return ins
+	})
+
+	function run() {
+		console.log('run')
+		console.log(ins.value = myrun())
+	}
+	function formatWord() {
+		return myformatWord(...arguments)
+	}
+
+	onMounted(() => {
+		console.log(run)
+	})
+
+	return {
+		ins, conflicts, run, formatWord
+	}
+},
+
+}).mount('#form')
+
+
 // TODO only store if not the default example
 var stored = window.localStorage['ins']
 if (stored)
@@ -5,7 +33,7 @@ if (stored)
 else
 	ins.value = sampleInputs.nch_rch
 
-function run(e) {
+function myrun(e) {
 	// Set up replacement rules, etc.
 	processInput()
 
@@ -208,8 +236,8 @@ function applyReplacements() {
 
 			var match = {
 				'word': originalword,
-				'originalpron': originalpron,
-				'subscript': (entries.length > 1) ? i : ''
+				'subscript': (entries.length > 1) ? i : '',
+				'originalpron': originalpron
 			}
 
 			if (!(transformedPron in matches)) {
@@ -276,7 +304,7 @@ function applyReplacements() {
 }
 
 total = 145049693
-function formatWord({word}) {
+function myformatWord({word}) {
 	var freq1 = freq[word] || 0
 	var prop = (freq1 || 1) / total
 	var log = -Math.log10(prop)

@@ -8,57 +8,56 @@
 	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-<form action="" v-scope="{ conflicts: {} }">
+<form id="form" action="">
 	<p>Enter stuff below. All client-side btw</p>
 	<p><textarea id="ins" cols="69" rows="5"></textarea></p>
 	<p>
-		<button id="but" @click.prevent="conflicts = run()">Find matches</button>
+		<button id="but" @click.prevent="run">Find matches</button>
 		<input type="reset" />
 	</p>
 	<output id="out">
+		<!-- <pre>{{ins}}</pre> -->
 		<!-- <pre>{{conflicts}}</pre> -->
-		<dl>
-		<template v-for="([transformedPron, bin], index) in conflicts">
-			<dt>{{index}}. <cite>{{ transformedPron }}</cite></dt>
-			<dd>
-				<dl>
-					<template v-for="(group, originalPron) of bin">
-						<dt><cite>{{ originalPron }}</cite></dt>
-						<dd>
-							<dl>
-								<template v-for="match in group">
-									<dt :set="f = formatWord(match)">
-										<span
-											:style="{ 'color': f.hsl, 'font-weight': f.weight + '00' }">
-											<small v-if="f.freq1">
-												10<sup>-{{ f.log.toFixed(1) }}</sup>
-											</small>
-											<small v-else>0</small>
-											{{ f.freq1 }}
-
-											{{ match.word }}
-											<sub v-if="match.subscript">{{ match.subscript }}</sub>
-										</span>
-									</dt>
-									<dd><cite>/{{ match.originalpron }}/</cite></dd>
-								</template>
-							</dl>
-						</dd>
-					</template>
-				</dl>
-			</dd>
+		<table border>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Transformed</th>
+			</tr>
+		</thead>
+		<tbody>
+		<template v-for="([transformedPron, bin], index) in ins">
+		<template v-for="(group, originalPron, index2) in bin">
+		<tr v-for="(match, index3) in group" :set="k2 = Object.keys(group).length">
+			<!-- <td v-if="!index2" :rowspan="k">{{bin}}</td> -->
+			<td v-if="!index2 && !index3" :rowspan="Object.values(bin).map((x)=>x.length).reduce((a,b)=>a+b,0)">{{index}}</td>
+			<td v-if="!index2 && !index3" :rowspan="Object.values(bin).map((x)=>x.length).reduce((a,b)=>a+b,0)"><cite>{{ transformedPron }}</cite></td>
+			<td v-if="!index3" :rowspan="k2"><cite>{{ originalPron }}</cite></td>
+			<td :set="f = formatWord(match)">
+				<span
+					:style="{ 'color': f.hsl, 'font-weight': f.weight + '00' }">
+					<small v-if="f.freq1">
+						10<sup>-{{ f.log.toFixed(1) }}</sup>
+					</small>
+					<small v-else>0</small>
+				</span>
+			</td>
+			<td><span>{{ f.freq1 }}</span></td>
+			<td><span>
+				{{ match.word }}<sub v-if="match.subscript">{{ match.subscript }}</sub>
+			</span></td>
+			<td><cite>/{{ match.originalpron }}/</cite></td>
+		</tr>
 		</template>
-		</dl>
+		</template>
+		</tbody>
+		</table>
 	</output>
 </form>
 
-<div v-scope="{count:0}">
-{{ count }}
-<button @click="count++">inc</button>
-</div>
-
 <!-- <script src="https://unpkg.com/petite-vue" defer init></script> -->
-<script src="petite-vue.js" defer init></script>
+<!-- <script src="petite-vue.js" defer init></script> -->
+<script src="vue.global.js"></script>
 
 <script src="en_US.js" async></script>
 <script src="freq.js" async></script>
