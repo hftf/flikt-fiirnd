@@ -309,10 +309,6 @@ function myformatWord({word}) {
 	var prop = (freq1 || 1) / total
 	var log = -Math.log10(prop)
 	var gray = .2 * log - .8
-
-	// if (window.matchMedia('(prefers-color-scheme: dark)')) {
-		// gray = 1 - gray
-	// }
 	var hsl = `hsl(0,0%,${100*gray}%)`
 
 	if      (log < 5)   weight = 9 // Black

@@ -20,13 +20,18 @@ th, td { vertical-align: baseline; background: /*#eee*/; }
 .t { font-style: italic; }
 .n {
 	font-family: 'Novel SansCond Pro', sans-serif;
-	font-family: 'Ideal Sans', sans-serif;
-	font-family: 'Alto Pro', sans-serif;
-	/*Encode, Fedra, Brill, Graphik, Guardian TextEgyp,
+	font-family: 'Encode Sans Condensed', sans-serif;
+	/* Alto, Novel, Ideal,
+	Encode, Fedra, Brill, Graphik, Guardian TextEgyp,
 	More Pro, Minion, Myriad, palatino linotype */
 	/*sanvito pro, sf pro rounded, skia, utopia, warnock */
 	font-stretch: condensed;
 	font-variant-numeric: tabular-nums lining-nums;
+}
+@media (prefers-color-scheme: dark) {
+	.n[style] {
+		filter: invert(100%)
+	}
 }
 cite {
 	/*vertical-align: 1px;*/
