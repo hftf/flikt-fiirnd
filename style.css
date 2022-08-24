@@ -11,7 +11,7 @@ output { display: block; padding: 1em; background: #e8e4f9; }
 table {
 	border-spacing: 0.25em 0;
 }
-tr.index2.index3 :is(th, td) { padding-top: 0.75em; }
+tr.index2.index3 :is(th, td) { padding-top: 1.0em; }
 tr.index3 :is(th, td) { padding-top: 0.5em; }
 th { text-align: left; font-weight: bolder; }
 th, td { vertical-align: baseline; background: /*#eee*/; }
@@ -20,7 +20,7 @@ th, td { vertical-align: baseline; background: /*#eee*/; }
 .t { font-style: italic; }
 .n {
 	font-family: 'Novel SansCond Pro', sans-serif;
-	font-family: 'Encode Sans Condensed', sans-serif;
+	font-family: 'Brill', sans-serif;
 	/* Alto, Novel, Ideal,
 	Encode, Fedra, Brill, Graphik, Guardian TextEgyp,
 	More Pro, Minion, Myriad, palatino linotype */
@@ -40,4 +40,4 @@ cite {
 	font-style: inherit;
 }
 sup { font-variant-position: super; font-feature-settings: 'sups'; font-size: 100%; vertical-align: unset; }
-sub { font-variant-position: sub;   font-feature-settings: 'sinf'; font-size: 100%; vertical-align: unset; }
+sub { font-variant-position: sub;   font-feature-settings: 'subs', 'sinf'; font-size: 100%; vertical-align: unset; }
