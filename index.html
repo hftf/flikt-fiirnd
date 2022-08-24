@@ -10,9 +10,10 @@
 <body>
 <form id="form" action="">
 	<p>Enter stuff below. All client-side btw</p>
-	<p><textarea id="ins" cols="69" rows="5"></textarea></p>
+	<p><textarea v-model.lazy="ins" cols="69" rows="5"></textarea></p>
 	<p>
 		<button id="but" @click.prevent="run">Find matches</button>
+		&nbsp;
 		<input type="reset" />
 	</p>
 	<output id="out">
@@ -39,12 +40,12 @@
 			</tr>
 		</thead>
 		<tbody>
-		<template v-for="([transformedPron, bin], index) in ins">
+		<template v-for="([transformedPron, bin], index) in conflicts">
 		<template v-for="(group, originalPron, index2) in bin">
 		<tr v-for="(match, index3) in group" :set="k2 = Object.keys(group).length" :class="{index2: !index2, index3: !index3}">
 			<!-- <td v-if="!index2" :rowspan="k">{{bin}}</td> -->
 			<!-- <td class="n" v-if="!index2 && !index3" :rowspan="Object.values(bin).map((x)=>x.length).reduce((a,b)=>a+b,0)">{{index}}</td> -->
-			<!-- <td class="n" v-if="!index3" :rowspan="k2" style="font-size: smaller;">{{index+1}}.{{index2+1}}<!-- {{index3+1}}. -></td> -->
+			<!-- <td class="n" v-if="!index3" :rowspan="k2" style="font-size: smaller;">{{index+1}}.{{index2+1}}.{{index3+1}}. </td> -->
 
 			<td class="n" v-if="!index2 && !index3" :rowspan="Object.values(bin).map((x)=>x.length).reduce((a,b)=>a+b,0)">{{index+1}}</td>
 			<th class="t" v-if="!index2 && !index3" :rowspan="Object.values(bin).map((x)=>x.length).reduce((a,b)=>a+b,0)"><cite>{{ transformedPron }}</cite></th>
@@ -63,6 +64,30 @@
 			</td>
 		</tr>
 		</template>
+		</template>
+		</tbody>
+		</table>
+
+		<h3>Transformer report</h3>
+		<table>
+		<thead>
+			<tr>
+				<th>Type</th>
+				<th>Transformer</th>
+				<th>Encountered</th>
+				<th>Accepted</th>
+				<th>Rejected</th>
+			</tr>
+		</thead>
+		<tbody>
+		<template v-for="(transformerGroup, transformerType) in transformers">
+			<tr v-for="transformer in transformerGroup">
+				<td>{{ transformerType }}</td>
+				<td><kbd>{{ transformer.line }}</kbd></td>
+				<td v-if="transformer.command!='group'">{{ transformer.accepted + transformer.rejected }}</td>
+				<td v-if="transformer.command!='group'">{{ transformer.accepted }}</td>
+				<td v-if="transformer.command!='group'">{{ transformer.rejected }}</td>
+			</tr>
 		</template>
 		</tbody>
 		</table>

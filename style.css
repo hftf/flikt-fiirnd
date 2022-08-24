@@ -1,5 +1,6 @@
-body { font-size: 1.25em; width: fit-content; margin: auto; }
+body { font-size: 1.25em; width: 45em; margin: auto; }
 textarea, button, input[type] { font-size: inherit; }
+code, kbd { font-family: Consolas, monospace; }
 textarea { font-family: Consolas, monospace; max-width: 90vw; }
 output { display: block; padding: 1em; background: #e8e4f9; }
 @media (prefers-color-scheme: dark) {

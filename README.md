@@ -8,7 +8,6 @@ Client-side dingus for finding stenonyms using a rough but simple DSL
 	- Document transformers / DSL
 	- More examples
 - Presentation
-	- List numbering
 	- Execution timer
 	- Accepted rejected sparkline
 	- Steno display font
